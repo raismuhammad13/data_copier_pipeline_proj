@@ -1,19 +1,25 @@
 import sys
-from config import  DB_DETAILS
-from util import get_tables
-
+from config import DB_DETAILS
+import util
+from util import get_tables, load_db_data
+from read import read_table
 
 
 def main():
     """Program takes at least one argument"""
     env = sys.argv[1]
-    # This will get the details from the config.py, and get the second record, the main function will take two arguments.
-    db_details = DB_DETAILS[env]
-    tables = get_tables('table_list.txt')   # The get_table function is called here which give the table name that is assigned yes.
-    for table in tables["table_name"]:
+    db_details = DB_DETAILS[env]   # load_db_data(env)
+    tables = get_tables('table_list.txt')   # Give table name that is assigned yes.
+    for table in tables['table_name']:
+        print('---------------------------------------')
         print(table)
-
+        data, columns_names = read_table(db_details, table)
+        print(columns_names)
+        for rec in data:
+            print(rec)
 
 
 if __name__ == '__main__':
     main()
+
+    
