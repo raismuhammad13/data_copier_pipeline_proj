@@ -7,8 +7,29 @@ import pyodbc
 from config import DB_DETAILS
 
 
-def load_db_data(env):
+def load_db_details(env):
     return DB_DETAILS[env]
+"""
+DB_DETAILS = {
+    'dev': {
+        'SOURCE_DB': {
+                'DB_TYPE': 'mysql',
+                'DB_HOST': 'localhost',
+                'DB_NAME': os.environ.get('SOURCE_DB'),
+                'DB_USER': os.environ.get('SOURCE_DB_USER'),
+                'DB_PASS': os.environ.get('SOURCE_DB_PASS')
+        },
+        'TARGET_DB': {
+                'DRIVER': '{ODBC Driver 17 for SQL Server}',
+                'SERVER': os.environ.get('TARGET_SERVER'),
+                'DATABASE': os.environ.get('TARGET_DB'),
+                'Trusted_Connection': os.environ.get('Trusted_Connection'),
+                'DB_USER': os.environ.get('TARGET_DB_USER'),
+                'DB_PASS': os.environ.get('TARGET_DB_PASS')
+        }
+    }
+}
+"""
 
 
 def get_mysql_connection(db_host, db_user, db_name, db_pass):
@@ -25,7 +46,13 @@ def get_mysql_connection(db_host, db_user, db_name, db_pass):
     return connection
 
 
-def get_connection(db_type, db_host, db_name, db_user, db_pass):
+def get_sql_server_connection(server_driver, db_server, db_name):
+    connection_string = f"DRIVER={server_driver};Server={db_server};Database={db_name};Trusted_Connection=yes;"
+    connection = pyodbc.connect(connection_string)
+    return connection
+
+
+def get_connection(db_type, server_driver, db_host, db_name, db_user, db_pass):
     connection = None
 
     if db_type == 'mysql':
@@ -35,11 +62,9 @@ def get_connection(db_type, db_host, db_name, db_user, db_pass):
                                           db_pass=db_pass
                                           )
     if db_type == 'sql server':
-        connection = get_mysql_connection(db_host=db_host,
-                                          db_user=db_user,
-                                          db_name=db_name,
-                                          db_pass=db_pass
-                                          )
+        connection = get_sql_server_connection(server_driver=server_driver,
+                                               db_server=db_host,
+                                               db_name=db_name)
     return connection
 
 

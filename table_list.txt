@@ -1,7 +1,7 @@
 table_name:to_be_loaded
 customers:yes
 employees:no
-offices:yes
+offices:no
 ofderdetails:no
 orders:no
 payments:no
