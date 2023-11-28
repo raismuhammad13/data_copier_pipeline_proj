@@ -68,16 +68,6 @@ def get_connection(db_type, server_driver, db_host, db_name, db_user, db_pass):
     return connection
 
 
-# def sql_server_connection():
-#     connection_string = '''
-#                         "Driver={SQL Server Native Client 11.0};"
-#                           "Server=server_name;"
-#                           "Database=db_name;"
-#                           "Trusted_Connection=yes;"
-#                         '''
-#     print(connection_string)
-
-
 def get_tables(path):
     tables = pd.read_csv(path, sep=':')
     return tables.query('to_be_loaded == "yes"')
