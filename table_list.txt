@@ -1,9 +1,9 @@
 table_name:to_be_loaded
 customers:yes
-employees:no
-offices:no
-ofderdetails:no
-orders:no
-payments:no
-productlines:no
-products:no
+employees:yes
+offices:yes
+orderdetails:yes
+orders:yes
+payments:yes
+productlines:yes
+products:yes

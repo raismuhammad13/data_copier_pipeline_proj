@@ -10,12 +10,11 @@ def main():
     env = sys.argv[1]
     db_details = load_db_details(env)
     tables = get_tables('table_list.txt')   # Give table name that is assigned yes.
-    print(get_sql_server_connection)
     for table in tables['table_name']:
-        print('---------------Reading data for Table------------------------')
-        print(table)
+        print(f'---------------Reading data for Table {table}------------------------')
+
         data, columns_names = read_table(db_details, table)
-        print('---------------Loading data for Table------------------------')
+        print(f'---------------Loading data for Table {table}------------------------')
         load_table(db_details, data, columns_names, table)
 
 

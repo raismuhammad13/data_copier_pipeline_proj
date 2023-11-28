@@ -18,7 +18,6 @@ def read_table(db_details, table_name, limit=0):
         query = f"SELECT * FROM {table_name} LIMIT{limit}"
     curses.execute(query)
     data = curses.fetchall()
-    print(data)
     columns = curses.column_names
 
     connection.close()
